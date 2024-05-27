@@ -2,3 +2,4 @@ streamlit
 langchain-experimental
 python-dotenv
 langchain-community
+openai

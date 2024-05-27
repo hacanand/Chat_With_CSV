@@ -2,12 +2,12 @@ import os
 import streamlit as st
 from langchain_experimental.agents.agent_toolkits import create_csv_agent
 from dotenv import load_dotenv
- 
+# from langchain import ChatOpenAI
 from langchain_community.chat_models import ChatOpenAI
 load_dotenv()
 def llm_response(query):
     llm=ChatOpenAI(temperature=0, model="gpt-3.5-turbo-0613", openai_api_key= os.environ["OPENAI_API_KEY"])
-    agent_executer=create_csv_agent(llm, 'salaries.csv', verbose=True)
+    agent_executer=create_csv_agent(llm, 'salaries.csv', verbose=True,return_intermediate_steps=True)
     response = agent_executer.invoke(query)
     return response
           
@@ -19,8 +19,6 @@ def ChatWithCsvGui():
         user_question = st.text_input('Ask a question about the CSV file:')
         if st.button('Submit'):
             res=llm_response(user_question)
-            st.write(res['output'])
-
-
+            st.write(res)
 
 ChatWithCsvGui()
