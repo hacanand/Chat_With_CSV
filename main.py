@@ -25,6 +25,8 @@ def ChatWithCsvGui():
                 st.stop()
             else:
                 res=llm_response(user_question)
-                st.write(res)
+                st.write(res['output'])
+                st.write('Intermediate Steps For better Understanding:')
+                st.write(res[intermediate_steps])
 
 ChatWithCsvGui()
