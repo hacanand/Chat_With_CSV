@@ -18,15 +18,17 @@ def llm_response(query):
 def ChatWithCsvGui():
         st.title('Chat With CSV')
         st.write('This is a chat interface that uses a given CSV file as a knowledge base.')
-        user_question = st.text_input('Ask a question about the CSV file:')
+        st.divider()
+        user_question = st.text_input('Ask a question about the CSV file:',placeholder='How many number of  employees are in year 2024 with company size Medium ?')
         if st.button('Submit'):
             if not user_question:
                 st.warning('Please input a valid text.')
                 st.stop()
             else:
                 res=llm_response(user_question)
+                st.write('Response:')
                 st.write(res['output'])
-                st.write('Intermediate Steps For better Understanding:')
-                st.write(res[intermediate_steps])
-
+                with st.expander("Intermediate Steps For better Understanding:"):
+                    st.write_stream(res['intermediate_steps'])
+                     
 ChatWithCsvGui()
